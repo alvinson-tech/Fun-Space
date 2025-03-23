@@ -18,6 +18,7 @@
             --shadow-color: rgba(0, 0, 0, 0.3);
             --text-color: #ffffff;
             --text-secondary: #b0b0b0;
+            --text-description: rgba(255, 255, 255, 0.6);
             --card-text: #ffffff;
         }
 
@@ -33,15 +34,29 @@
             background-attachment: fixed;
             min-height: 100vh;
             color: var(--text-color);
-            padding: 2rem;
+            padding: 2rem 1rem;
             position: relative;
             overflow-x: hidden;
+        }
+
+        /* Subtle Background Pattern */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.3;
         }
 
         /* Subtle Background Elements */
         .bg-glow {
             position: fixed;
-            z-index: -1;
+            z-index: -2;
             border-radius: 50%;
             filter: blur(60px);
             opacity: 0.15;
@@ -49,8 +64,8 @@
         }
 
         .glow-1 {
-            width: 400px;
-            height: 400px;
+            width: 300px;
+            height: 300px;
             background: var(--primary-color);
             top: 20%;
             right: -100px;
@@ -58,8 +73,8 @@
         }
 
         .glow-2 {
-            width: 350px;
-            height: 350px;
+            width: 250px;
+            height: 250px;
             background: var(--accent-color);
             bottom: 10%;
             left: -80px;
@@ -67,8 +82,8 @@
         }
 
         .glow-3 {
-            width: 250px;
-            height: 250px;
+            width: 200px;
+            height: 200px;
             background: var(--secondary-color);
             top: 60%;
             right: 30%;
@@ -76,6 +91,7 @@
         }
 
         .container {
+            width: 100%;
             max-width: 1000px;
             margin: 0 auto;
             position: relative;
@@ -87,12 +103,13 @@
 
         header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             animation: fadeIn 1s ease-in;
+            padding: 0 1rem;
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 8vw, 3.5rem);
             margin-bottom: 0.2rem;
             background: linear-gradient(to right, var(--primary-color), var(--accent-color));
             -webkit-background-clip: text;
@@ -104,7 +121,7 @@
         }
 
         h2 {
-            font-size: 1.8rem;
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
             color: var(--text-color);
             margin-bottom: 1rem;
             font-family: 'Quicksand', sans-serif;
@@ -113,9 +130,10 @@
 
         p.subtitle {
             color: var(--text-secondary);
-            font-size: 1.2rem;
+            font-size: clamp(0.9rem, 4vw, 1.2rem);
             margin-bottom: 1rem;
             font-weight: 500;
+            padding: 0 0.5rem;
         }
 
         .games-container {
@@ -123,11 +141,14 @@
             flex-direction: column;
             gap: 1.5rem;
             margin-bottom: 3rem;
+            width: 100%;
+            padding: 0 0.5rem;
         }
 
         .game-row {
             display: flex;
             gap: 1.5rem;
+            width: 100%;
         }
 
         .game-item {
@@ -144,7 +165,8 @@
             transform: translateY(20px);
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            height: 70px;
+            min-height: 80px;
+            width: 100%;
         }
 
         .game-item:hover {
@@ -154,12 +176,14 @@
         }
 
         .number-container {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            min-width: 50px;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            background: linear-gradient(135deg, #3f356e 0%, #262654 100%);
         }
 
         .preview-number {
@@ -172,18 +196,47 @@
 
         .game-details {
             flex-grow: 1;
-            padding: 0 1rem;
+            padding: 0.75rem 1rem;
             text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .game-item h3 {
             color: var(--text-color);
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 4vw, 1.3rem);
             font-weight: 600;
+            margin-bottom: 0.3rem;
+            word-break: break-word;
+        }
+
+        .game-description {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        /* Category text styles */
+        .category-think {
+            color: rgba(240, 147, 43, 0.6); /* Orange with 60% opacity */
+        }
+
+        .category-logic {
+            color: rgba(46, 204, 113, 0.6); /* Green with 60% opacity */
+        }
+
+        .category-strategy {
+            color: rgba(231, 76, 60, 0.6); /* Red with 60% opacity */
+        }
+
+        .category-fun {
+            color: rgba(52, 152, 219, 0.6); /* Blue with 60% opacity */
         }
 
         .btn-container {
-            padding: 0 1.5rem 0 0;
+            padding: 0 1rem 0 0;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -200,28 +253,12 @@
             font-weight: 600;
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
         }
 
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Different background colors for variety */
-        .num-0 .number-container {
-            background-color: #5c43f0;
-        }
-
-        .num-1 .number-container {
-            background-color: #f04393;
-        }
-
-        .num-2 .number-container {
-            background-color: #43b0f0;
-        }
-
-        .num-3 .number-container {
-            background-color: #f0b843;
         }
 
         footer {
@@ -270,52 +307,114 @@
             }
         }
 
-        /* Responsiveness */
+        /* Improved Responsiveness */
         @media screen and (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            h2 {
-                font-size: 1.4rem;
-            }
-            
             body {
-                padding: 1rem;
+                padding: 1rem 0.5rem;
             }
 
             .game-row {
                 flex-direction: column;
                 gap: 1rem;
             }
+            
+            .btn {
+                padding: 6px 16px;
+                font-size: 0.85rem;
+            }
+            
+            .number-container {
+                width: 60px;
+            }
+            
+            .preview-number {
+                font-size: 1.5rem;
+            }
+            
+            .glow-1, .glow-2, .glow-3 {
+                opacity: 0.1;
+            }
         }
 
         @media screen and (max-width: 480px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+            
+            .game-item {
+                flex-direction: row;
+                height: auto;
+                min-height: 70px;
+            }
+
+            .number-container {
+                width: 50px;
+                height: 100%;
+                min-height: 70px;
+            }
+            
+            .preview-number {
+                font-size: 1.3rem;
+            }
+
+            .game-details {
+                padding: 0.5rem 0.75rem;
+            }
+
+            .btn-container {
+                padding: 0 0.75rem 0 0;
+            }
+            
+            .btn {
+                padding: 5px 12px;
+                font-size: 0.8rem;
+            }
+            
+            header {
+                margin-bottom: 1.5rem;
+            }
+            
+            footer p {
+                font-size: 0.85rem;
+            }
+        }
+        
+        /* Extra small devices */
+        @media screen and (max-width: 360px) {
             .game-item {
                 flex-direction: column;
-                height: auto;
                 padding-bottom: 1rem;
+                align-items: center;
+                text-align: center;
             }
 
             .number-container {
                 width: 100%;
-                height: 50px;
+                height: 40px;
+                min-height: 40px;
                 border-radius: 0;
             }
 
             .game-details {
                 text-align: center;
-                padding: 1rem 1rem 0.5rem;
+                padding: 0.75rem 0.5rem 0.5rem;
             }
 
             .btn-container {
                 padding: 0.5rem 0 0;
                 justify-content: center;
             }
+            
+            .game-item h3 {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Subtle Background Pattern -->
+    <div class="bg-pattern"></div>
+    
     <!-- Subtle Background Elements -->
     <div class="bg-glow glow-1"></div>
     <div class="bg-glow glow-2"></div>
@@ -333,54 +432,140 @@
         </div>
 
         <footer>
-            <p><strong>Crafted with love for the bored duo's to pass time & have fun!</strong></p>
+            <p><strong>Crafted with ❤️ for the bored duo's out there!</strong></p>
             <p>© 2025 | ALL RIGHTS RESERVED</p>
         </footer>
     </div>
 
     <script>
-        // Game data - same as before
+        // Game data with descriptions
         const games = [
             {
                 id: 1,
                 name: "GeoGuessr",
+                category: "think",
+                categoryDisplay: "Think",
                 url: "https://www.geoguessr.com/"
             },
             {
                 id: 2,
-                name: "GeoGuessr",
-                url: "https://www.geoguessr.com/"
+                name: "Victordle (Wordle Battle)",
+                category: "logic",
+                categoryDisplay: "Logic",
+                url: "https://www.britannica.com/games/victordle/"
             },
             {
                 id: 3,
-                name: "Wordle",
-                url: "https://www.nytimes.com/games/wordle/index.html"
+                name: "Pifler (Battle with Words)",
+                category: "logic",
+                categoryDisplay: "Logic",
+                url: "https://www.merriam-webster.com/games/pilfer"
             },
             {
                 id: 4,
-                name: "Battleship",
-                url: "https://battleship-game.org/"
+                name: "Connect 4",
+                category: "strategy",
+                categoryDisplay: "Strategy",
+                url: "https://papergames.io/en/connect4"
             },
             {
                 id: 5,
-                name: "2048",
-                url: "https://play2048.co/"
+                name: "Gomuko (Connect 5)",
+                category: "strategy",
+                categoryDisplay: "Strategy",
+                url: "https://papergames.io/en/gomoku"
             },
             {
                 id: 6,
-                name: "Chess",
-                url: "https://www.chess.com/play/online"
+                name: "Scribbl",
+                category: "think",
+                categoryDisplay: "Think",
+                url: "https://skribbl.io/"
             },
             {
                 id: 7,
-                name: "Sudoku",
-                url: "https://sudoku.com/"
+                name: "Tic Tac Toe",
+                category: "strategy",
+                categoryDisplay: "Strategy",
+                url: "https://papergames.io/en/tic-tac-toe"
             },
             {
                 id: 8,
-                name: "Solitaire",
-                url: "https://www.solitaire-play.com/"
-            }
+                name: "Chess",
+                category: "strategy",
+                categoryDisplay: "Strategy",
+                url: "https://papergames.io/en/chess"
+            },
+            {
+                id: 9,
+                name: "Battleship",
+                category: "strategy",
+                categoryDisplay: "Strategy",
+                url: "https://papergames.io/en/battleship"
+            },
+            {
+                id: 10,
+                name: "UsDoku (Sudoku Battle)",
+                category: "logic",
+                categoryDisplay: "Logic",
+                url: "https://www.usdoku.com/"
+            },
+            {
+                id: 11,
+                name: "Classic Wordle",
+                category: "logic",
+                categoryDisplay: "Logic",
+                url: "https://wordly.org/"
+            },
+            {
+                id: 12,
+                name: "Dordle",
+                category: "logic",
+                categoryDisplay: "Logic",
+                url: "https://dordlewordle.com/"
+            },
+            {
+                id: 13,
+                name: "Quordle",
+                category: "logic",
+                categoryDisplay: "Logic",
+                url: "https://quordly.com/"
+            },
+            {
+                id: 14,
+                name: "Octordle",
+                category: "logic",
+                categoryDisplay: "Logic",
+                url: "https://octordly.com/"
+            },
+            {
+                id: 15,
+                name: "Sedecordle",
+                category: "logic",
+                categoryDisplay: "Logic",
+                url: "https://sedecordlegame.org/"
+            },
+            {
+                id: 16,
+                name: "Globe (Guess Country)",
+                category: "think",
+                categoryDisplay: "Think",
+                url: "https://globle.org/?"
+            },
+            {
+                id: 17,
+                name: "Map (Guess Country)",
+                category: "think",
+                categoryDisplay: "Think",
+                url: "https://worldlegame.io/?"
+            },
+            {
+                id: 18,
+                name: "Word Search",
+                category: "think",
+                categoryDisplay: "Think",
+                url: "https://wordsearch.io/"
+            },
         ];
 
         // Function to display games in a two-column layout
@@ -394,7 +579,7 @@
                 
                 // Create first game in the row
                 const game1 = document.createElement('div');
-                game1.className = `game-item num-${i % 4}`;
+                game1.className = 'game-item';
                 game1.style.animationDelay = `${i * 0.1}s`;
                 
                 game1.innerHTML = `
@@ -403,6 +588,7 @@
                     </div>
                     <div class="game-details">
                         <h3>${games[i].name}</h3>
+                        <p class="game-description category-${games[i].category}">${games[i].categoryDisplay}</p>
                     </div>
                     <div class="btn-container">
                         <a href="${games[i].url}" target="_blank" class="btn">Play</a>
@@ -414,7 +600,7 @@
                 // Create second game in the row (if available)
                 if (i + 1 < games.length) {
                     const game2 = document.createElement('div');
-                    game2.className = `game-item num-${(i + 1) % 4}`;
+                    game2.className = 'game-item';
                     game2.style.animationDelay = `${(i + 1) * 0.1}s`;
                     
                     game2.innerHTML = `
@@ -423,6 +609,7 @@
                         </div>
                         <div class="game-details">
                             <h3>${games[i+1].name}</h3>
+                            <p class="game-description category-${games[i+1].category}">${games[i+1].categoryDisplay}</p>
                         </div>
                         <div class="btn-container">
                             <a href="${games[i+1].url}" target="_blank" class="btn">Play</a>
